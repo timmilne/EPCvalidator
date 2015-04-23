@@ -25,19 +25,12 @@
 @end
 
 // Global values
-
-NSString *Dpt;
-NSString *Cls;
-NSString *Itm;
-NSString *Ser;
-
-
-NSString *SGTIN_URI_Prefix;
-NSString *SGTIN_Bin_Prefix;
-NSString *GIAI_URI_Prefix;
-NSString *GIAI_Bin_Prefix;
-NSString *GID_URI_Prefix;
-NSString *GID_Bin_Prefix;
+NSString *SGTIN_URI_Prefix = @"urn:epc:tag:sgtin-96:1.";
+NSString *SGTIN_Bin_Prefix = @"00110000";
+NSString *GIAI_URI_Prefix  = @"urn:epc:tag:giai-96:0.";
+NSString *GIAI_Bin_Prefix  = @"00110100";
+NSString *GID_URI_Prefix   = @"urn:epc:tag:gid-96:";
+NSString *GID_Bin_Prefix   = @"00110101";
 
 NSDictionary *dictBin2Hex;
 NSDictionary *dictHex2Bin;
@@ -47,19 +40,6 @@ NSDictionary *dictHex2Bin;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    Dpt = [self.Dpt_fld text];
-    Cls = [self.Cls_fld text];
-    Itm = [self.Itm_fld text];
-    Ser = [self.Ser_fld text];
-    
-    SGTIN_URI_Prefix = @"urn:epc:tag:sgtin-96:1.";
-    SGTIN_Bin_Prefix = @"00110000";
-    GIAI_URI_Prefix = @"urn:epc:tag:giai-96:0.";
-    GIAI_Bin_Prefix = @"00110100";
-    GID_URI_Prefix  = @"urn:epc:tag:gid-96:";
-    GID_Bin_Prefix  = @"00110101";
-    
     dictBin2Hex = [[NSDictionary alloc] initWithObjectsAndKeys:
                         @"0",@"0000",
                         @"1",@"0001",
@@ -95,6 +75,7 @@ NSDictionary *dictHex2Bin;
                         @"1101",@"D",
                         @"1110",@"E",
                         @"1111",@"F", nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,40 +90,39 @@ NSDictionary *dictHex2Bin;
     return NO;
 }
 
-- (IBAction)DptEditEnd:(UITextField *)sender {
-    Dpt = [sender text];
-    [self updateAll];
-}
-
-- (IBAction)ClsEditEnd:(UITextField *)sender {
-    Cls = [sender text];
-    [self updateAll];
-}
-
-- (IBAction)ItmEditEnd:(UITextField *)sender {
-    Itm = [sender text];
-    [self updateAll];
-}
-
-- (IBAction)SerEditEnd:(UITextField *)sender {
-    Ser = [sender text];
-    [self updateAll];
-}
-
-- (void)updateAll {
+// All the edit fields point here, after you end the edit and hit return
+- (IBAction)Update:(id)sender {
     // Get and validate inputs
-    /*
     NSString *Dpt = [self.Dpt_fld text];
     NSString *Cls = [self.Cls_fld text];
     NSString *Itm = [self.Itm_fld text];
     NSString *Ser = [self.Ser_fld text];
-     */
     
-    // TPM Input checking
-    // For each type, make sure the input is not too long (especially the Serial Number)
+    // Make sure the inputs are not too long (especially the Serial Number)
+    if ([Dpt length] > 3) {
+        Dpt = [Dpt substringToIndex:3];
+        [self.Dpt_fld setText:Dpt];
+    }
+    if ([Cls length] > 2) {
+        Cls = [Cls substringToIndex:2];
+        [self.Cls_fld setText:Cls];
+    }
+    if ([Itm length] > 4) {
+        Itm = [Itm substringToIndex:4];
+        [self.Itm_fld setText:Itm];
+    }
+    if ([Ser length] > 10) {
+        // SGTIN serial number max = 11
+        // GIAI serial number max = 18
+        // GID serial number max = 10
+        // Shorten to the least common denominator for now
+        Ser = [Ser substringToIndex:10];
+        [self.Ser_fld setText:Ser];
+    }
+
     
-    // SGTIN - e.g. urn:epc:tag:sgtin-96:1.4928100.085700.12345
-    //              30352CC99053B10000003039
+    // SGTIN - e.g. urn:epc:tag:sgtin-96:1.04928100.08570.12345
+    //              3030259932085E8000003039
     //
     // A UPC 12 can be promoted to an EAN14 by right shifting and adding to zeros to the front.
     // One of these zeroes is an indicator digit, which is '0' for items, and this will be moved
@@ -174,14 +154,16 @@ NSDictionary *dictHex2Bin;
     NSString *SGTIN_Bin_str = [NSString stringWithFormat:@"%@001100%@%@%@",SGTIN_Bin_Prefix,Dpt_Cls_bin,Itm_bin,Ser_bin];
     NSString *SGTIN_Hex_str = [self Bin2Hex:(SGTIN_Bin_str)];
     NSString *SGTIN_URI_str = [NSString stringWithFormat:@"%@%@.%@.%@",SGTIN_URI_Prefix,Dpt_Cls_dec,Itm_dec,Ser];
-    
+
+// Check with http://www.kentraub.net/tools/tagxlate/EPCEncoderDecoder.html
 //    NSString *SGTIN_Hex_Ken_str = @"3030259932085E8000003039";
 //    NSString *GSTIN_Bin_Ken_str = [self Hex2Bin:SGTIN_Hex_Ken_str];
     
     [self.SGTIN_URI_fld setText:SGTIN_URI_str];
     [self.SGTIN_Hex_fld setText:SGTIN_Hex_str];
+
     
-    // GIAI - e.g. urn:epc:tag:giai-96:0.49828008570.12345
+    // GIAI - e.g. urn:epc:tag:giai-96:0.49281008570.12345
     //             34056F2C1077400000003039
     //
     // Here is how to pack the GIAI-96 into the EPC
@@ -203,7 +185,8 @@ NSDictionary *dictHex2Bin;
     NSString *GIAI_Bin_str = [NSString stringWithFormat:@"%@000001%@%@",GIAI_Bin_Prefix,Dpt_Cls_Itm_bin,Ser_bin];
     NSString *GIAI_Hex_str = [self Bin2Hex:(GIAI_Bin_str)];
     NSString *GIAI_URI_str = [NSString stringWithFormat:@"%@%@.%@",GIAI_URI_Prefix,Dpt_Cls_Itm_dec,Ser];
-    
+
+// Check with http://www.kentraub.net/tools/tagxlate/EPCEncoderDecoder.html
 //    NSString *GIAI_Hex_Ken_str = @"34056F2C1077400000003039";
 //    NSString *GIAI_Bin_Ken_str = [self Hex2Bin:GIAI_Hex_Ken_str];
     
@@ -211,8 +194,8 @@ NSDictionary *dictHex2Bin;
     [self.GIAI_Hex_fld setText:GIAI_Hex_str];
 
     
-    // GID - e.g. urn:epc:tag:gid-96:xxx.xxxx.xxx
-    //            xxxxxx
+    // GID - e.g. urn:epc:tag:gid-96:4928100.85702.12345
+    //            3504B3264014EC6000003039
     //
     // Here is how to pack the GID-96 into the EPC
     // 8 bits are the header: 00110101 or 0x35 (GID-96)
@@ -242,11 +225,10 @@ NSDictionary *dictHex2Bin;
     NSString *GID_Bin_str = [NSString stringWithFormat:@"%@%@%@%@",GID_Bin_Prefix,Dpt_Cls_bin,Itm_Chk_bin,Ser_bin];
     NSString *GID_Hex_str = [self Bin2Hex:(GID_Bin_str)];
     NSString *GID_URI_str = [NSString stringWithFormat:@"%@%@.%@.%@",GID_URI_Prefix,Dpt_Cls_dec,Itm_Chk_dec,Ser];
-    
-    
+
+// Check with http://www.kentraub.net/tools/tagxlate/EPCEncoderDecoder.html
 //    NSString *GID_Hex_Ken_str = @"3504B3264014EC6000003039";
 //    NSString *GID_Bin_Ken_str = [self Hex2Bin:GID_Hex_Ken_str];
-    
     
     [self.GID_URI_fld setText:GID_URI_str];
     [self.GID_Hex_fld setText:GID_Hex_str];

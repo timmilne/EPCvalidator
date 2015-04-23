@@ -10,7 +10,6 @@
 
 @interface ViewController : UIViewController
 
-- (void)updateAll;
 - (NSString *)Dec2Bin:(NSString *)dec;
 - (NSString *)Bin2Dec:(NSString *)bin;
 - (NSString *)Dec2Hex:(NSString *)dec;

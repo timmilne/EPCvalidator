@@ -21,7 +21,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="DptEditEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="QJo-v1-EXZ"/>
+                                    <action selector="Update:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="xfO-1D-elg"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="FBS-5Q-kYv"/>
                                 </connections>
                             </textField>
@@ -48,7 +48,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="ClsEditEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="h4U-KQ-Tud"/>
+                                    <action selector="Update:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="pj1-VS-aNr"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="fs4-M9-W4W"/>
                                 </connections>
                             </textField>
@@ -57,7 +57,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="ItmEditEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="a4X-Zi-fZM"/>
+                                    <action selector="Update:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="EeG-LR-Dy2"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="JRs-kh-6sh"/>
                                 </connections>
                             </textField>
@@ -115,7 +115,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="SerEditEnd:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="ZRR-nv-OK1"/>
+                                    <action selector="Update:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="qao-l9-Psj"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Dul-pG-hb7"/>
                                 </connections>
                             </textField>
