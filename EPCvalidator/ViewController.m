@@ -201,18 +201,18 @@ NSDictionary *dictHex2Bin;
     // 8 bits are the header: 00110101 or 0x35 (GID-96)
     // No Filter
     // No Partition
-    // 28 bits are the manager number: 00 + 49 + Department + Class (9 digits)
-    // 24 bits are the item number (object class): 000 + Item + Check Digit (8 digits)
+    // 28 bits are the manager number: 00 + 49 + Department + Class (8 digits)
+    // 24 bits are the item number (object class): 000 + Item + Check Digit (7 digits)
     // 36 bits are the serial number (guaranteed 10 digits)
     // = 96 bits
-    Dpt_Cls_dec = [NSString stringWithFormat:@"49%@%@",Dpt,Cls];
+    Dpt_Cls_dec = [NSString stringWithFormat:@"049%@%@",Dpt,Cls];
     Dpt_Cls_bin = [self Dec2Bin:(Dpt_Cls_dec)];
     for (int i=(int)[Dpt_Cls_bin length]; i<(int)28; i++) {
         Dpt_Cls_bin = [NSString stringWithFormat:@"0%@", Dpt_Cls_bin];
     }
     NSString *upc = [NSString stringWithFormat:@"49%@%@%@",Dpt,Cls,Itm];
     NSString *checkDigit = [self CalculateCheckDigit:upc];
-    NSString *Itm_Chk_dec = [NSString stringWithFormat:@"%@%@",Itm,checkDigit];
+    NSString *Itm_Chk_dec = [NSString stringWithFormat:@"00%@%@",Itm,checkDigit];
     NSString *Itm_Chk_bin = [self Dec2Bin:(Itm_Chk_dec)];
     for (int i=(int)[Itm_Chk_bin length]; i<(int)24; i++) {
         Itm_Chk_bin = [NSString stringWithFormat:@"0%@", Itm_Chk_bin];
