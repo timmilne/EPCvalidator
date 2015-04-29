@@ -22,7 +22,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Class" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iO-Yk-6Wk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Class" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iO-Yk-6Wk">
                                 <rect key="frame" x="68" y="78" width="91" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -52,7 +52,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="JRs-kh-6sh"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="urn:epc:tag:gid-96:4928100.85702.12345" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aUR-zF-H10">
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="urn:epc:tag:gid-96:04928100.0085702.12345" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aUR-zF-H10">
                                 <rect key="frame" x="58" y="461" width="283" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -144,8 +144,6 @@
                             <constraint firstItem="2pw-f8-qoS" firstAttribute="leading" secondItem="zIc-W4-DFc" secondAttribute="leading" id="NIN-0h-B9u"/>
                             <constraint firstAttribute="centerX" secondItem="czv-dn-uSb" secondAttribute="centerX" id="jML-WF-ltU"/>
                             <constraint firstItem="2pw-f8-qoS" firstAttribute="width" secondItem="zIc-W4-DFc" secondAttribute="width" id="kuk-p4-UfX"/>
-                            <constraint firstItem="0wI-Xb-u2y" firstAttribute="width" secondItem="5iO-Yk-6Wk" secondAttribute="width" id="poJ-ZI-ChK"/>
-                            <constraint firstItem="0wI-Xb-u2y" firstAttribute="trailing" secondItem="5iO-Yk-6Wk" secondAttribute="trailing" id="vwg-ZG-act"/>
                         </constraints>
                     </view>
                     <connections>
@@ -163,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="419" y="383"/>
+            <point key="canvasLocation" x="416" y="345"/>
         </scene>
     </scenes>
 </document>
