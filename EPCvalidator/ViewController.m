@@ -10,6 +10,7 @@
 
 // NSString
 @import Foundation;
+@import UIKit;
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *Dpt_fld;
@@ -37,8 +38,21 @@ NSDictionary *dictHex2Bin;
 
 @implementation ViewController
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0xCC0000);
+    self.navigationController.navigationBar.translucent = NO; // Shifts things down
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
+    shadow.shadowOffset = CGSizeMake(0, 1);
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                      UIColorFromRGB(0xFFFFFF), NSForegroundColorAttributeName,
+                                                                      shadow, NSShadowAttributeName, nil]];
+    
+
     // Do any additional setup after loading the view, typically from a nib.
     dictBin2Hex = [[NSDictionary alloc] initWithObjectsAndKeys:
                         @"0",@"0000",
