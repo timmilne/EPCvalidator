@@ -1,0 +1,2 @@
+#Stop tacking this
+*.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
